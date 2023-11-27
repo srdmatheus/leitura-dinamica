@@ -1,3 +1,42 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.text-shadow {
+  text-shadow: 1px 0 0 black;
+}
+
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: #2b805a;
+  cursor: pointer;
+  outline: none;
+  height: 0.5rem;
+  border-radius: 0.5rem;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none; 
+    appearance: none;
+    margin-top: 0px; 
+    background-color: #3fcf8e;
+    border-radius: 0.5rem;
+    height: 0.5rem;
+    width: 1rem;
+  }
+
+  /*********** Firefox styles ***********/
+  &::-moz-range-track {
+    background-color: #3fcf8e;
+    border-radius: 0.5rem;
+    height: 0.5rem;
+  }
+
+  &::-moz-range-thumb {
+    background-color: #808080;
+    border: none;
+    border-radius: 0.5rem;
+    height: 0.5rem;
+    width: 1rem;
+  }
+}
