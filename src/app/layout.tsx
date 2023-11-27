@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '@/styles/globals.css';
+import { PlayerContextProvider } from '@/contexts/player';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -16,7 +17,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br">
-      <body className={inter.className}>{children}</body>
+      <body
+        className={`${inter.className} bg-gray-50 text-gray-800 selection:bg-brand-button selection:text-white`}
+      >
+        <PlayerContextProvider>{children}</PlayerContextProvider>
+      </body>
     </html>
   );
 }
