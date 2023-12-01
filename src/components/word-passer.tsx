@@ -45,7 +45,7 @@ export const WordPasser = ({
       )}
     >
       {variant === 'unique' ? (
-        <span className="text-center text-5xl font-semibold transition-all">
+        <span className="text-center text-7xl font-semibold transition-all">
           {words[currentWordIndex]}
         </span>
       ) : (

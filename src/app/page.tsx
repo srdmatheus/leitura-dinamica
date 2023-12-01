@@ -11,21 +11,23 @@ export default function Home() {
   const { updateText, text } = usePlayerContext();
 
   return (
-    <div className="mx-auto flex max-w-[800px] flex-col gap-8">
-      {editMode ? (
-        <textarea
-          className="flex h-[280px] w-full resize-none rounded-md p-4 outline-none ring-brand focus:ring-2"
-          value={text}
-          onChange={(e) => updateText(e.target.value)}
+    <div className="mx-auto flex h-[100dvh] items-center justify-center">
+      <div className="flex min-w-[800px] flex-col gap-8">
+        {editMode ? (
+          <textarea
+            className="flex h-[280px] w-full resize-none rounded-md p-4 outline-none ring-brand focus:ring-2"
+            value={text}
+            onChange={(e) => updateText(e.target.value)}
+          />
+        ) : (
+          <WordPasser className="h-[280px]" variant={variantMode} />
+        )}
+        <Settings
+          editMode={editMode}
+          setEditMode={setEditMode}
+          setVariantMode={setVariantMode}
         />
-      ) : (
-        <WordPasser className="h-[280px]" variant={variantMode} />
-      )}
-      <Settings
-        editMode={editMode}
-        setEditMode={setEditMode}
-        setVariantMode={setVariantMode}
-      />
+      </div>
     </div>
   );
 }

@@ -49,7 +49,7 @@ export const Settings = ({
   };
 
   return (
-    <div className="relative flex flex-col rounded-md bg-gray-200">
+    <div className="relative flex flex-col gap-2 rounded-md bg-gray-200">
       <input
         type="range"
         className="slider w-full cursor-pointer ring-brand ring-offset-2 focus:ring-2"
@@ -58,40 +58,51 @@ export const Settings = ({
         value={currentWordIndex}
         onChange={handleChangeSlider}
       />
-      <div className="flex gap-8 p-2">
-        <div>
-          <Button
-            className="rounded-r-none border-none"
-            onClick={() => updateWordPerMinute(wordPerMinute - 25)}
-          >
-            -
-          </Button>
-          <input
-            className="w-14 py-1 text-center text-sm outline-none ring-brand [appearance:textfield] focus:ring-2 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-            type="number"
-            min={50}
-            value={wordPerMinute}
-            step={25}
-            onChange={handleChangeWordPerMinute}
-          />
-          <Button
-            className="rounded-l-none border-none"
-            onClick={() => updateWordPerMinute(wordPerMinute + 25)}
-          >
-            +
-          </Button>
+      <div className="flex justify-between p-2">
+        <div className="flex flex-col">
+          <span className="text-sm">Palavras por minuto:</span>
+          <div>
+            <Button
+              className="rounded-r-none border-none"
+              onClick={() => updateWordPerMinute(wordPerMinute - 25)}
+            >
+              -
+            </Button>
+            <input
+              className="w-14 py-1 text-center text-sm outline-none ring-brand [appearance:textfield] focus:ring-2 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+              type="number"
+              min={50}
+              value={wordPerMinute}
+              step={25}
+              onChange={handleChangeWordPerMinute}
+            />
+            <Button
+              className="rounded-l-none border-none"
+              onClick={() => updateWordPerMinute(wordPerMinute + 25)}
+            >
+              +
+            </Button>
+          </div>
         </div>
-        <Button onClick={handleToggleProgressing}>
-          {isProgressing ? 'Pausar' : 'Iniciar'}
-        </Button>
-        <Button onClick={handleToggleEditMode}>
-          {editMode ? 'Salvar' : 'Editar'}
-        </Button>
+        <div>
+          <span className="text-sm">Controle:</span>
+          <div className="flex gap-2">
+            <Button onClick={handleToggleProgressing}>
+              {isProgressing ? 'Pausar' : 'Iniciar'}
+            </Button>
+            <Button onClick={handleToggleEditMode}>
+              {editMode ? 'Salvar' : 'Editar'}
+            </Button>
+          </div>
+        </div>
 
-        <select onChange={handleChangeVariant}>
-          <option value="text">Texto completo</option>
-          <option value="unique">Palavra única</option>
-        </select>
+        <div className="flex flex-col">
+          <span className="text-sm">Modo:</span>
+          <select onChange={handleChangeVariant}>
+            <option value="text">Texto completo</option>
+            <option value="unique">Palavra única</option>
+          </select>
+        </div>
       </div>
     </div>
   );
