@@ -1,6 +1,7 @@
 'use client';
 
 import { Settings } from '@/components/settings';
+import { SideBar } from '@/components/side-bar';
 import { WordPasser } from '@/components/word-passer';
 import { usePlayerContext } from '@/contexts/player';
 import { useState } from 'react';
@@ -8,10 +9,15 @@ import { useState } from 'react';
 export default function Home() {
   const [editMode, setEditMode] = useState(true);
   const [variantMode, setVariantMode] = useState<'unique' | 'text'>('unique');
+  const [sideBarIsOpen, setSideBarIsOpen] = useState(false);
   const { updateText, text } = usePlayerContext();
 
   return (
     <div className="mx-auto flex h-[100dvh] items-center justify-center">
+      <SideBar
+        className={sideBarIsOpen ? '-right-96' : ''}
+        onClick={() => setSideBarIsOpen((prev) => !prev)}
+      />
       <div className="flex min-w-[800px] flex-col gap-8">
         {editMode ? (
           <textarea
