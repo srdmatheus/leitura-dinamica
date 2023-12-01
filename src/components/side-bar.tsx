@@ -1,21 +1,36 @@
 import { cn } from '@/utils/cn';
-import { ComponentProps } from 'react';
+import { PanelLeftOpen, PanelRightOpen } from 'lucide-react';
+import { ComponentProps, SetStateAction } from 'react';
 
 type SideBarProps = ComponentProps<'div'> & {
-  className?: string;
+  isOpen: boolean;
+  handleToggleOpen: React.Dispatch<SetStateAction<boolean>>;
 };
 
-export const SideBar = ({ className, ...props }: SideBarProps) => {
+export const SideBar = ({
+  className,
+  isOpen,
+  handleToggleOpen,
+  ...props
+}: SideBarProps) => {
   return (
     <div
       className={cn(
-        'absolute right-0 z-50 h-[100dvh] w-96 bg-brand transition-all',
+        'absolute right-0 z-50 h-[100dvh] w-96 shadow-2xl shadow-gray-400/80 transition-all',
+        isOpen ? '-right-96' : '',
         className
       )}
       {...props}
     >
-      <div className="absolute -left-12 h-12 w-12 bg-brand-button" />
-      sidebar
+      <button
+        className="absolute -left-12 top-24 flex h-12 w-12 items-center justify-center rounded-l-lg border border-r-0 border-brand bg-brand-button font-bold text-white outline-none ring-brand ring-offset-2 transition-all hover:bg-brand-button"
+        onClick={() => handleToggleOpen((prev) => !prev)}
+      >
+        {isOpen ? <PanelRightOpen size={32} /> : <PanelLeftOpen size={32} />}
+      </button>
+      <div className="h-full border-l border-gray-300 bg-gray-200 p-4">
+        sidebar
+      </div>
     </div>
   );
 };
