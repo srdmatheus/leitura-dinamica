@@ -1,18 +1,14 @@
 import { Dispatch, SetStateAction } from 'react';
 import { Button } from './ui/button';
 import { usePlayerContext } from '@/contexts/player';
+import { Minus, Pause, Play, Plus } from 'lucide-react';
 
 type SettingsProps = {
-  editMode: boolean;
-  setEditMode: (state: boolean) => void;
-  setVariantMode: Dispatch<SetStateAction<'unique' | 'text'>>;
+  setVariantMode: Dispatch<SetStateAction<'word' | 'text'>>;
+  variantMode: 'word' | 'text';
 };
 
-export const Settings = ({
-  editMode,
-  setEditMode,
-  setVariantMode
-}: SettingsProps) => {
+export const Settings = ({ variantMode, setVariantMode }: SettingsProps) => {
   const {
     toggleIsProgressing,
     isProgressing,
@@ -24,11 +20,9 @@ export const Settings = ({
   } = usePlayerContext();
 
   const handleToggleProgressing = () => {
-    setEditMode(false);
     toggleIsProgressing();
   };
 
-  const handleToggleEditMode = () => setEditMode(!editMode);
   const totalWords = words.length - 1;
 
   const handleChangeSlider = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,35 +35,38 @@ export const Settings = ({
     updateWordPerMinute(Number(e.target.value));
   };
 
-  const handleChangeVariant = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value } = e.target;
-    if (value === 'unique' || value === 'text') {
+  const handleChangeVariant = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    const { value } = e.currentTarget;
+    if (value === 'word' || value === 'text') {
       setVariantMode(value);
     }
   };
 
   return (
-    <div className="relative flex flex-col gap-2 rounded-md bg-gray-200">
+    <div className="relative flex flex-col rounded-md border border-gray-300 bg-gray-200">
       <input
         type="range"
-        className="slider w-full cursor-pointer ring-brand ring-offset-2 focus:ring-2"
+        className="slider w-full cursor-pointer ring-brand ring-offset-2 focus-visible:ring-2"
         min={1}
         max={totalWords}
         value={currentWordIndex}
         onChange={handleChangeSlider}
       />
-      <div className="flex justify-between p-2">
-        <div className="flex flex-col">
-          <span className="text-sm">Palavras por minuto:</span>
-          <div>
+
+      <div className="flex items-center justify-between p-4">
+        <div className="flex flex-col gap-2 text-center">
+          <span className="text-sm font-semibold">Palavras por minuto</span>
+          <div className="flex">
             <Button
               className="rounded-r-none border-none"
               onClick={() => updateWordPerMinute(wordPerMinute - 25)}
             >
-              -
+              <Minus size={16} strokeWidth={3} />
             </Button>
             <input
-              className="w-14 py-1 text-center text-sm outline-none ring-brand [appearance:textfield] focus:ring-2 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+              className="w-14 py-1 text-center text-sm outline-none ring-brand [appearance:textfield] focus-visible:ring-2 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               type="number"
               min={50}
               value={wordPerMinute}
@@ -80,28 +77,44 @@ export const Settings = ({
               className="rounded-l-none border-none"
               onClick={() => updateWordPerMinute(wordPerMinute + 25)}
             >
-              +
-            </Button>
-          </div>
-        </div>
-        <div>
-          <span className="text-sm">Controle:</span>
-          <div className="flex gap-2">
-            <Button onClick={handleToggleProgressing}>
-              {isProgressing ? 'Pausar' : 'Iniciar'}
-            </Button>
-            <Button onClick={handleToggleEditMode}>
-              {editMode ? 'Salvar' : 'Editar'}
+              <Plus size={16} strokeWidth={3} />
             </Button>
           </div>
         </div>
 
-        <div className="flex flex-col">
-          <span className="text-sm">Modo:</span>
-          <select onChange={handleChangeVariant}>
-            <option value="text">Texto completo</option>
-            <option value="unique">Palavra única</option>
-          </select>
+        <Button
+          onClick={handleToggleProgressing}
+          className="h-10 w-56 self-end"
+        >
+          {isProgressing ? (
+            <Pause strokeWidth={2} fill="white" />
+          ) : (
+            <Play strokeWidth={3} fill="white" />
+          )}
+        </Button>
+
+        <div className="flex flex-col gap-2 text-center">
+          <span className="text-sm font-semibold">Modo</span>
+          <div className="flex">
+            <Button
+              className={`rounded-r-none border-none ${
+                variantMode === 'word' ? 'bg-brand-button' : 'bg-gray-500'
+              }`}
+              value="word"
+              onClick={(e) => handleChangeVariant(e)}
+            >
+              Palavra
+            </Button>
+            <Button
+              className={`rounded-l-none border-none ${
+                variantMode === 'text' ? 'bg-brand-button' : 'bg-gray-500'
+              }`}
+              value="text"
+              onClick={(e) => handleChangeVariant(e)}
+            >
+              Texto
+            </Button>
+          </div>
         </div>
       </div>
     </div>
