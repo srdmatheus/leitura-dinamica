@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body
-        className={`${inter.className} bg-gray-50 text-gray-800 selection:bg-brand-button selection:text-white`}
+        className={`${inter.className} overflow-x-hidden bg-gray-50 text-gray-800 selection:bg-brand-button  selection:text-white`}
       >
         <PlayerContextProvider>{children}</PlayerContextProvider>
       </body>
