@@ -11,7 +11,7 @@ export const WordPasserText = () => {
           key={`word-${index}`}
           className={cn(
             'text-lg',
-            currentWordIndex - 1 === index ? 'text-shadow' : 'opacity-60'
+            currentWordIndex === index ? 'text-shadow' : 'opacity-60'
           )}
         >
           {word}{' '}
