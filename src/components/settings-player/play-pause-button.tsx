@@ -2,10 +2,13 @@ import { Pause, Play } from 'lucide-react';
 
 import { Button } from '../ui/button';
 
-import { usePlayer } from '@/hooks/usePlayer';
+import { usePlayerStore } from '@/store/player';
 
 export const PlayPauseButton = () => {
-  const { isProgressing, toggleIsProgressing } = usePlayer();
+  const {
+    state: { isProgressing },
+    actions: { toggleIsProgressing }
+  } = usePlayerStore();
 
   return (
     <Button onClick={toggleIsProgressing} className="h-10 w-56 self-end">

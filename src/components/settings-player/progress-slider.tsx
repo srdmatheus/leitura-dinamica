@@ -1,7 +1,10 @@
-import { usePlayer } from '@/hooks/usePlayer';
+import { usePlayerStore } from '@/store/player';
 
 export const ProgressSlider = () => {
-  const { text, saveCurrentWordIndex, currentWordIndex } = usePlayer();
+  const {
+    state: { text, currentWordIndex },
+    actions: { saveCurrentWordIndex }
+  } = usePlayerStore();
 
   const totalWords = text.split(' ').length - 1;
 
