@@ -1,18 +1,22 @@
 import { cn } from '@/utils/cn';
 import { PanelLeftOpen, PanelRightOpen } from 'lucide-react';
 import { ComponentProps, SetStateAction } from 'react';
+import { Auth } from './auth';
+import { useAuth } from '@/hooks/useAuth';
+import { UserProfileSidebar } from './user-profile-sidebar';
 
-type SideBarProps = ComponentProps<'div'> & {
+type SidebarProps = ComponentProps<'div'> & {
   isOpen: boolean;
   handleToggleOpen: React.Dispatch<SetStateAction<boolean>>;
 };
 
-export const SideBar = ({
+export const Sidebar = ({
   className,
   isOpen,
   handleToggleOpen,
   ...props
-}: SideBarProps) => {
+}: SidebarProps) => {
+  const { user } = useAuth();
   return (
     <div
       className={cn(
@@ -29,7 +33,7 @@ export const SideBar = ({
         {isOpen ? <PanelRightOpen size={32} /> : <PanelLeftOpen size={32} />}
       </button>
       <div className="h-full border-l border-gray-300 bg-gray-200 p-4">
-        sidebar
+        {user ? <UserProfileSidebar /> : <Auth />}
       </div>
     </div>
   );

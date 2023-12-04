@@ -1,7 +1,7 @@
 'use client';
 
-import { Player } from '@/components/player';
-import { SideBar } from '@/components/side-bar';
+import { Player } from '@/components/player/player';
+import { Sidebar } from '@/components/sidebar';
 import { useState } from 'react';
 
 export default function Home() {
@@ -9,7 +9,7 @@ export default function Home() {
 
   return (
     <div className="mx-auto flex h-[100dvh] items-center justify-center">
-      <SideBar isOpen={sideBarIsOpen} handleToggleOpen={setSideBarIsOpen} />
+      <Sidebar isOpen={sideBarIsOpen} handleToggleOpen={setSideBarIsOpen} />
       <Player />
     </div>
   );
