@@ -55,7 +55,7 @@ export const Auth = () => {
         <label>
           E-mail:
           <Input
-            type="text"
+            type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
