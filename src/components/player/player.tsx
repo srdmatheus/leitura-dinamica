@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { WordPasserUnique } from './word-passer-unique';
 import { WordPasserText } from './word-passer-text';
-import { Settings } from './settings';
+import { Settings } from '../settings-player/settings';
 
 export const Player = () => {
   const [variantMode, setVariantMode] = useState<'word' | 'text'>('word');
