@@ -1,8 +1,9 @@
 import { useState } from 'react';
 
 import { supabase } from '@/services/supabase';
-import { usePlayerContext } from '@/contexts/player';
+
 import { useAuth } from '@/hooks/useAuth';
+import { usePlayer } from '@/hooks/usePlayer';
 
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -11,7 +12,7 @@ import { Plus } from 'lucide-react';
 export const UserProfileSidebar = () => {
   const [textToRegister, setTextToRegister] = useState('');
   const { user, updateUser, texts } = useAuth();
-  const { updateText } = usePlayerContext();
+  const { updateText } = usePlayer();
 
   const handleLogout = async () => {
     try {

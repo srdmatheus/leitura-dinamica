@@ -1,9 +1,9 @@
-import { usePlayerContext } from '@/contexts/player';
+import { usePlayer } from '@/hooks/usePlayer';
 
 export const ProgressSlider = () => {
-  const { words, saveCurrentWordIndex, currentWordIndex } = usePlayerContext();
+  const { text, saveCurrentWordIndex, currentWordIndex } = usePlayer();
 
-  const totalWords = words.length - 1;
+  const totalWords = text.split(' ').length - 1;
 
   const handleChangeSlider = (event: React.ChangeEvent<HTMLInputElement>) => {
     saveCurrentWordIndex(Number(event.target.value));
@@ -13,7 +13,7 @@ export const ProgressSlider = () => {
     <input
       type="range"
       className="slider w-full cursor-pointer ring-brand ring-offset-2 focus-visible:ring-2"
-      min={1}
+      min={0}
       max={totalWords}
       value={currentWordIndex}
       onChange={handleChangeSlider}

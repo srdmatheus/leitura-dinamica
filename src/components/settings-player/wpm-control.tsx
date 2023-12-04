@@ -1,9 +1,9 @@
-import { usePlayerContext } from '@/contexts/player';
+import { usePlayer } from '@/hooks/usePlayer';
 import { Button } from '../ui/button';
 import { Minus, Plus } from 'lucide-react';
 
 export const WpmControl = () => {
-  const { wordPerMinute, updateWordPerMinute } = usePlayerContext();
+  const { wordPerMinute, updateWordPerMinute } = usePlayer();
   const handleChangeWordPerMinute = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
