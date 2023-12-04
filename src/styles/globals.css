@@ -40,3 +40,24 @@
     width: 1rem;
   }
 }
+
+.scrollbar {
+  &::-webkit-scrollbar {
+    height: 6px;
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #2b805a;
+    border-radius: 4px;
+}
+ 
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #2b805a;
+  }
+}
