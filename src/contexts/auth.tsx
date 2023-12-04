@@ -55,7 +55,9 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
           .select('*')
           .eq('user_id', user?.id);
 
-        setTexts(data);
+        if (data) {
+          setTexts(data);
+        }
       };
       fetchTexts();
     }
@@ -69,7 +71,9 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       .select('*')
       .eq('user_id', userId);
 
-    setTexts(data);
+    if (data) {
+      setTexts(data);
+    }
   };
 
   return (
