@@ -32,7 +32,7 @@ export const Sidebar = ({
       >
         {isOpen ? <PanelRightOpen size={32} /> : <PanelLeftOpen size={32} />}
       </button>
-      <div className="h-full border-l border-gray-300 bg-gray-200 p-4">
+      <div className="flex h-full w-full flex-col justify-center border-l border-gray-300 bg-gray-200 p-4">
         {user ? <UserProfileSidebar /> : <Auth />}
       </div>
     </div>

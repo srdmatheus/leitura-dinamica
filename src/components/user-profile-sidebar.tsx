@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { supabase } from '@/services/supabase';
 
 import { useAuth } from '@/hooks/useAuth';
@@ -8,14 +6,28 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Plus } from 'lucide-react';
 import { usePlayerStore } from '@/store/player';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Controller, useForm } from 'react-hook-form';
+
+const formSchema = z.object({
+  text: z.string().min(30, { message: 'Insira um texto maior.' })
+});
+
+type FormData = z.infer<typeof formSchema>;
 
 export const UserProfileSidebar = () => {
-  const [textToRegister, setTextToRegister] = useState('');
   const { user, updateUser, texts } = useAuth();
 
   const {
     actions: { updateText }
   } = usePlayerStore();
+
+  const {
+    handleSubmit,
+    control,
+    formState: { isSubmitting, errors }
+  } = useForm<FormData>({ resolver: zodResolver(formSchema) });
 
   const handleLogout = async () => {
     try {
@@ -26,10 +38,8 @@ export const UserProfileSidebar = () => {
     }
   };
 
-  const handleNewTextRegister = async () => {
-    await supabase
-      .from('Texts')
-      .insert({ content: textToRegister, user_id: user?.id });
+  const onSubmit = async ({ text }: FormData) => {
+    await supabase.from('Texts').insert({ content: text, user_id: user?.id });
   };
 
   return (
@@ -39,21 +49,36 @@ export const UserProfileSidebar = () => {
         <p className="font-semibold">{user?.email}</p>
       </div>
 
-      <div className="mt-20 flex w-full">
-        <Input
-          type="text"
-          placeholder="Cadastrar novo texto"
-          className="rounded-r-none border-none"
-          value={textToRegister}
-          onChange={(e) => setTextToRegister(e.target.value)}
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-20 flex w-full">
+        <Controller
+          name="text"
+          control={control}
+          defaultValue={''}
+          render={({ field }) => (
+            <>
+              <Input
+                {...field}
+                type="text"
+                placeholder="Cole aqui o seu texto"
+                className={`rounded-r-none ${
+                  errors.text ? 'border-red-500' : ''
+                }`}
+              />
+            </>
+          )}
         />
+
         <Button
           className="rounded-l-none border-none"
-          onClick={handleNewTextRegister}
+          type="submit"
+          disabled={isSubmitting}
         >
           <Plus size={18} strokeWidth={3} />
         </Button>
-      </div>
+      </form>
+      {errors.text && (
+        <span className="text-red-500">{errors.text.message}</span>
+      )}
 
       <div className="mb-4 mt-8 flex flex-col gap-2 overflow-y-auto">
         <span className="text-center text-sm font-semibold">
