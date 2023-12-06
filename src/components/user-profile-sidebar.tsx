@@ -1,11 +1,11 @@
 import { supabase } from '@/services/supabase';
 
 import { useAuth } from '@/hooks/useAuth';
-import { usePlayer } from '@/hooks/usePlayer';
 
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Plus } from 'lucide-react';
+import { usePlayerStore } from '@/store/player';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
@@ -18,7 +18,10 @@ type FormData = z.infer<typeof formSchema>;
 
 export const UserProfileSidebar = () => {
   const { user, updateUser, texts } = useAuth();
-  const { updateText } = usePlayer();
+
+  const {
+    actions: { updateText }
+  } = usePlayerStore();
 
   const {
     handleSubmit,

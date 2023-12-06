@@ -1,20 +1,16 @@
-import { usePlayer } from '@/hooks/usePlayer';
-import { useEffect, useRef } from 'react';
+import { usePlayerStore } from '@/store/player';
+import { useEffect, useMemo, useRef } from 'react';
 
 export const useWordPasser = () => {
   const {
-    text,
-    isProgressing,
-    toggleIsProgressing,
-    currentWordIndex,
-    saveCurrentWordIndex,
-    wordPerMinute
-  } = usePlayer();
+    state: { text, isProgressing, currentWordIndex, wordPerMinute },
+    actions: { saveCurrentWordIndex, toggleIsProgressing }
+  } = usePlayerStore();
 
   const wordPerMinuteInMilliseconds = Math.round(60000 / wordPerMinute);
   const timerRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
-  const words = text.trim().split(' ');
+  const words = useMemo(() => text.trim().split(' '), [text]);
 
   useEffect(() => {
     const isEndOfWords = currentWordIndex >= words.length;

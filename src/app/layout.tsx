@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '@/styles/globals.css';
-import { PlayerContextProvider } from '@/contexts/player';
+
 import { AuthContextProvider } from '@/contexts/auth';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -21,9 +21,7 @@ export default function RootLayout({
       <body
         className={`${inter.className} overflow-x-hidden bg-gray-50 text-gray-800 selection:bg-brand-button  selection:text-white`}
       >
-        <AuthContextProvider>
-          <PlayerContextProvider>{children}</PlayerContextProvider>
-        </AuthContextProvider>
+        <AuthContextProvider>{children}</AuthContextProvider>
       </body>
     </html>
   );

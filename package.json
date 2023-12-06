@@ -19,6 +19,7 @@
     "react-hook-form": "7.48.2",
     "supabase": "1.115.4",
     "tailwind-merge": "2.0.0",
+    "zustand": "4.4.7",
     "zod": "3.22.4"
   },
   "devDependencies": {
